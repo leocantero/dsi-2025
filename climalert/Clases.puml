@@ -1,0 +1,58 @@
+@startuml
+class Clima {
+    - temperatura : double
+    - humedad : double
+    - ubicacion : Ubicacion
+}
+
+class Validador {
+    - List<ICondicionAlerta> condiciones
+    + cumpleCondiciones(Clima clima) : boolean
+}
+
+interface ICondicionAlerta{
+    -cumpleCondicion(Clima clima) : Boolean
+}
+
+class CondicionHumedad{
+    - humedadMaxima : double
+    + cumpleCondicion(Clima clima) : boolean
+}
+
+class CondicionTemperatura {
+    - temperaturaMaxima : double}
+    + cumpleCondicion(Clima clima) : boolean
+}
+
+enum Ubicacion {
+    CABA,
+    GBA,
+    SANTA_FE
+}
+
+class Email{
+    - remitente : String
+    - destinatarios : List<Destinatario>
+    - asunto : String
+    - mensaje : String
+}
+
+class Destinatario{
+    - correo : String
+    - nombre : String
+}
+
+class Alerta{
+    - fechaCreacion : LocalDate
+    - clima : Clima
+}
+
+Validador ..> Clima
+Validador --> ICondicionAlerta
+CondicionTemperatura ..|> ICondicionAlerta
+CondicionHumedad     ..|> ICondicionAlerta
+Clima --> Ubicacion
+Alerta --> Clima
+Alerta *-- Email
+Email --> Destinatario
+@enduml
