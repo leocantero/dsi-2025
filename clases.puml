@@ -1,0 +1,22 @@
+@startuml
+class Serie {
+    + nombre: String
+    + portada: Imagen
+    + genero: Genero
+    + resenia: String
+    + duracion:  Double
+    - reproducir(): void
+    - pausar(): void
+}
+
+class Genero {
+    + nombre: String
+}
+
+class Imagen {
+    + path: String
+}
+
+Serie --> Imagen
+Serie --> Genero
+@enduml
