@@ -8,13 +8,13 @@ import java.time.LocalDateTime;
 public class Clima {
     private Double temperatura;
     private Double humedad;
-    private String ubicacion;
+    private Ciudad ciudad;
     private LocalDateTime fechaHora;
 
-    public Clima(Double temperatura, Double humedad, String ubicacion, LocalDateTime fechaHora) {
+    public Clima(Double temperatura, Double humedad, Ciudad ciudad/*,LocalDateTime fechaHora*/) {
         this.temperatura = temperatura;
         this.humedad = humedad;
-        this.ubicacion = ubicacion;
-        this.fechaHora = fechaHora;
+        this.ciudad = ciudad;
+        //this.fechaHora = fechaHora;
     }
 }

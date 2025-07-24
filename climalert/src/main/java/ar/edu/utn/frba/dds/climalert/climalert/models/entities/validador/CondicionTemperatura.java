@@ -5,11 +5,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CondicionTemperatura implements ICondicionAlerta {
-    private final Double temperaturaMaxima;
+    private Double temperaturaMaxima = 35.0;
 
-    public CondicionTemperatura(Double temperaturaMaxima) {
-        this.temperaturaMaxima = temperaturaMaxima;
-    }
+   // public CondicionTemperatura(Double temperaturaMaxima) {
+    //    this.temperaturaMaxima = temperaturaMaxima;
+    //}
 
     @Override
     public Boolean cumpleCondicion(Clima clima) {

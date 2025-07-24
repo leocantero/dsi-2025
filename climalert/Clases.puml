@@ -2,7 +2,7 @@
 class Clima {
     - temperatura : double
     - humedad : double
-    - ubicacion : Ubicacion
+    - ciudad : Ciudad
 }
 
 class Validador {
@@ -10,7 +10,7 @@ class Validador {
     + cumpleCondiciones(Clima clima) : boolean
 }
 
-interface ICondicionAlerta{
+interface ICondicionAlerta {
     -cumpleCondicion(Clima clima) : Boolean
 }
 
@@ -24,17 +24,28 @@ class CondicionTemperatura {
     + cumpleCondicion(Clima clima) : boolean
 }
 
-enum Ubicacion {
-    CABA,
-    GBA,
-    SANTA_FE
+class Ciudad {
+    - nombre : String
+
 }
+
+interface IAdapterAPI{
+    + obtenerClima(ciudad: Ciudad) : Clima
+}
+
+class WebClientClima implements IAdapterAPI {
+    - apiKey : String
+    - url : String
+
+    + obtenerClima(ciudad: Ciudad) : Clima
+    }
 
 class Email{
     - remitente : String
     - destinatarios : List<Destinatario>
     - asunto : String
     - mensaje : String
+    - alerta : Alerta
 }
 
 class Destinatario{
@@ -47,11 +58,12 @@ class Alerta{
     - clima : Clima
 }
 
+IAdapterAPI ..> Ciudad
+Clima --> Ciudad
 Validador ..> Clima
 Validador --> ICondicionAlerta
 CondicionTemperatura ..|> ICondicionAlerta
 CondicionHumedad     ..|> ICondicionAlerta
-Clima --> Ubicacion
 Alerta --> Clima
 Alerta *-- Email
 Email --> Destinatario
