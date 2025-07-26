@@ -1,27 +1,114 @@
 @startuml
-'https://plantuml.com/class-diagram
 
-abstract class AbstractList
-abstract AbstractCollection
-interface List
-interface Collection
-
-List <|-- AbstractList
-Collection <|-- AbstractCollection
-
-Collection <|- List
-AbstractCollection <|- AbstractList
-AbstractList <|-- ArrayList
-
-class ArrayList {
-Object[] elementData
-size()
+interface IObservable{
+    + agregarObserver(IObserver observer) : void
+    + eliminarObserver(IObserver observer) : void
+    + notificar() : void
 }
 
-enum TimeUnit {
-DAYS
-HOURS
-MINUTES
+class Sucursal implements IObservable {
+    - List<IObserver> observers
+    + agregarObserver(IObserver observer) : void
+    + eliminarObserver(IObserver observer) : void
+    + notificar() : void
+    + vender(Producto producto) : void
 }
 
+interface IObserver{
+    + serNotificado(Producto producto)
+}
+
+interface IAdapterAPI{
+    + registrarVentaSistemaExterno(Producto producto) : void
+}
+
+
+class OficinaContable implements IObserver{
+    -adapterAPI : IAdapterAPI
+
+    + serNotificado(Producto producto) : void
+    + registrarVenta(Producto producto) : Void
+}
+
+class SistemaContableExterno implements IAdapterAPI{
+    + WebClient: WebClient
+    + url : String
+
+    + serNotificado(Producto producto)
+    + registrarVentaSistemaExterno(Producto producto) : void
+}
+
+class Deposito implements IObserver{
+
+    + serNotificado(Producto producto) : Void
+    + prepararVenta(Producto producto) : Void
+}
+
+class ContadorDeVentas implements IObserver{
+
+    + serNotificado(Producto producto)
+    + contabilizarVenta(Producto producto) : void
+}
+
+class Producto {
+    - nombre : String
+    - tipoProducto : TipoProducto
+    - precioBase : Double
+
+    + precioFinal() : Double
+}
+
+
+interface TipoProducto {
+
+    + impuestoAplicados(Double precioBase) : Double
+
+}
+
+class ProductoElectronico implements TipoProducto{
+    - impuestos  : List<Impuesto>
+
+    + impuestoAplicados(Double precioBase) : Double
+
+}
+
+
+class ProductoDeHogar implements TipoProducto{
+    - impuestos  : List<Impuesto>
+
+    + impuestoAplicados(Double precioBase) : Double
+}
+
+interface Impuesto{
+    + calcularImpuesto(precioBase: double) : Double
+}
+
+class IVA  implements Impuesto{
+    - gananciaImpositiva : Double
+
+
+    + calcularImpuesto(precioBase: double) : Double
+
+}
+
+class EO implements Impuesto {
+    - gananciaImpositiva : Double
+
+    + calcularImpuesto(precioBase: double) : Double
+
+}
+
+class EI implements Impuesto{
+    - gananciaImpositiva : Double
+
+    + calcularImpuesto(precioBase: double) : Double
+}
+
+Sucursal --> "*" IObserver
+Producto --> TipoProducto
+ProductoDeHogar --> "*" Impuesto
+ProductoElectronico --> "*" Impuesto
+OficinaContable --> IAdapterAPI
+Sucursal ..> Producto
+IObserver ..> Producto
 @enduml
