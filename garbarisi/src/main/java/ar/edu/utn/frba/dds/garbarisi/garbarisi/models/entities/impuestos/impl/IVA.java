@@ -4,12 +4,11 @@ import ar.edu.utn.frba.dds.garbarisi.garbarisi.models.entities.impuestos.IImpues
 
 public class IVA implements IImpuesto {
     private Double gananciaImpositiva;
-
+    private Double porcentajeIva;
 
 
     @Override
     public Double calcularImpuesto(Double precioBase) {
-        // TODO: Implementar la logica de calculo del IVA
-        return 0.0;
+        return porcentajeIva * precioBase;
     }
 }

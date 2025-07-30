@@ -11,7 +11,6 @@ public class EO implements IImpuesto {
 
     @Override
     public Double calcularImpuesto(Double precioBase) {
-        // TODO: Implementar la logica de calculo del impuesto especial sobre operaciones (EO)
-        return 0.0;
+        return (0.5 * precioBase)/ (4 * gananciaImpositiva);
     }
 }

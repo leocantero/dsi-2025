@@ -10,6 +10,6 @@ public class Producto {
     private Double precioBase;
 
     public Double precioFinal() {
-        return this.tipoProducto.calcularPrecioFinal(this.precioBase);
+        return tipoProducto.impuestosAplicados(precioBase) + precioBase;
     }
 }

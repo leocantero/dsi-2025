@@ -11,7 +11,6 @@ public class EI implements IImpuesto {
 
     @Override
     public Double calcularImpuesto(Double precioBase) {
-        // TODO: Implementar la logica de calculo del impuesto especial sobre importaciones (EI)
-        return 0.0;
+        return (precioBase / 4) + 0.3 * gananciaImpositiva;
     }
 }

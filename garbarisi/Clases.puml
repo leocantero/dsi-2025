@@ -10,7 +10,7 @@ class Sucursal implements IObservable {
     - List<IObserver> observers
     + agregarObserver(IObserver observer) : void
     + eliminarObserver(IObserver observer) : void
-    + notificar() : void
+    + notificar(Producto producto) : void
     + vender(Producto producto) : void
 }
 
